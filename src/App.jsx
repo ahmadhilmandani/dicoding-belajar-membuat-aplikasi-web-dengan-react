@@ -6,6 +6,8 @@ import Card from './components/Card'
 import moment from "moment"
 
 function App() {
+  const [title, setTitle] = useState('')
+  const [body, setBody] = useState('')
   const [notes, setNote] = useState(
     [
       {
@@ -33,7 +35,6 @@ function App() {
   )
 
   function changeArchived(paramsId) {
-    console.log("test")
     const newNotes = notes.map(note => {
       if (note.id !== paramsId) {
         return note;
@@ -59,16 +60,40 @@ function App() {
       <main className='mt-12'>
         <section className='max-w-md mx-auto'>
           <h1 className='mb-4'>Buat Catatan</h1>
-          <input type="text" className="outline-0 bg-cust-light-gray rounded-lg px-4 py-2 text-sm w-full border focus:outline-1 outline-cust-blue focus:border-cust-blue" placeholder="Judul catatan... ✨" />
-          <textarea name="" id="" cols="30" rows="10" className="outline-0 bg-cust-light-gray rounded-lg px-4 py-2 text-sm w-full border focus:outline-1 outline-cust-blue focus:border-cust-blue mt-4 mb-4" placeholder='tulis deksripsi catatan... 📝'></textarea>
-          <Button isPrimary>
+
+          <input onChange={(e) => {
+            console.log(e.target.value)
+            setTitle(e.target.value)
+          }} type="text" className="outline-0 bg-cust-light-gray rounded-lg px-4 py-2 text-sm w-full border focus:outline-1 outline-cust-blue focus:border-cust-blue" placeholder="Judul catatan... ✨" />
+
+          <textarea onChange={(e) => {
+            console.log(e.target.value)
+
+            setBody(e.target.value)
+          }} name="" id="" cols="30" rows="10" className="outline-0 bg-cust-light-gray rounded-lg px-4 py-2 text-sm w-full border focus:outline-1 outline-cust-blue focus:border-cust-blue mt-4 mb-4" placeholder='tulis deksripsi catatan... 📝'>
+          </textarea>
+
+          <Button isPrimary onClick={() => {
+            setNote(
+              [
+                ...notes,
+                {
+                  id: ++notes.length,
+                  title: title,
+                  body: body,
+                  isArchived: false,
+                  createdAt: new Date()
+                }
+              ]
+            )
+          }}>
             Tambah 🫰
           </Button>
         </section>
         <section className='mt-10'>
           <div>
             <h1 className='mb-4'>Catatan aktif</h1>
-            <div className='flex gap-4'>
+            <div className='flex gap-4 flex-wrap'>
               {notes.map((note) => {
                 if (note.isArchived != true) {
                   return (
@@ -89,7 +114,7 @@ function App() {
           </div>
           <div className='mt-4'>
             <h1 className='mb-4'>Arsip</h1>
-            <div className='flex gap-4'>
+            <div className='flex gap-4 flex-wrap'>
               {notes.map((note) => {
                 if (note.isArchived) {
                   return (

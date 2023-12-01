@@ -2,7 +2,7 @@
 import Button from "./Button";
 import { useState } from "react";
 
-function Card({ noteId, title, children, createdAt, changeArchived, isArchived, deleteNote }) {
+function Card({ children, noteId, title, isArchived, createdAt, deleteNote, changeArchived }) {
   const [color, setColor] = useState('#D1EAED')
 
   function changeColor(paramColor) {
