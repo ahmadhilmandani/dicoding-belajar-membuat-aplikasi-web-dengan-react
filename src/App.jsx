@@ -59,12 +59,20 @@ function App() {
       <Navigation />
       <main className='mt-12'>
         <section className='max-w-md mx-auto'>
-          <h1 className='mb-4'>Buat Catatan</h1>
+          <h1 className='mb-6'>Buat Catatan</h1>
 
+          <label className='mb-2 text-xs flex justify-between'>
+            <div>
+            <sup className='text-red-500 text-base'>*</sup>Judul harus diisi
+            </div>
+            <div>
+            Sisa karakter: {50-title.length}
+            </div>
+          </label>
           <input onChange={(e) => {
             console.log(e.target.value)
             setTitle(e.target.value)
-          }} type="text" className="outline-0 bg-cust-light-gray rounded-lg px-4 py-2 text-sm w-full border focus:outline-1 outline-cust-blue focus:border-cust-blue" placeholder="Judul catatan... ✨" />
+          }} maxLength={50} type="text" className="outline-0 bg-cust-light-gray rounded-lg px-4 py-2 text-sm w-full border focus:outline-1 outline-cust-blue focus:border-cust-blue" placeholder="Judul catatan... ✨" />
 
           <textarea onChange={(e) => {
             console.log(e.target.value)
@@ -74,6 +82,9 @@ function App() {
           </textarea>
 
           <Button isPrimary onClick={() => {
+            if (!title) {
+              return
+            }
             setNote(
               [
                 ...notes,

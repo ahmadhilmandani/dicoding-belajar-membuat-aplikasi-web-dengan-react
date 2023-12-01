@@ -10,7 +10,7 @@ function Card({ children, noteId, title, isArchived, createdAt, deleteNote, chan
   }
 
   return (
-    <div className='w-80 rounded-md p-8 relative' style={{
+    <div className='w-80 rounded-md p-8 relative break-all' style={{
       backgroundColor: color,
     }}>
       <h3>
