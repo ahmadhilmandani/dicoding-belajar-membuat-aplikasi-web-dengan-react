@@ -8,7 +8,7 @@ function Button({ children = 'Button', isPrimary, textSize = '14px', padding ='8
   }
   else {
     return (
-      <button className='block w-full rounded-lg py-2 font-medium border border-cust-black hover:bg-cust-black transition-all duration-75 hover:text-cust-white' style={{fontSize: textSize, padding:padding}}>{children}</button>
+      <button onClick={onClick} className='block w-full rounded-lg py-2 font-medium border border-cust-black hover:bg-cust-black transition-all duration-75 hover:text-cust-white' style={{fontSize: textSize, padding:padding}}>{children}</button>
     )
   }
 }

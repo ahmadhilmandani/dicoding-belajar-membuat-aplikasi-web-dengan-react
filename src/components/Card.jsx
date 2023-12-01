@@ -2,12 +2,13 @@
 import Button from "./Button";
 import { useState } from "react";
 
-function Card({ noteId, title, children, createdAt, changeArchived }) {
+function Card({ noteId, title, children, createdAt, changeArchived, isArchived, deleteNote }) {
   const [color, setColor] = useState('#D1EAED')
 
   function changeColor(paramColor) {
     setColor(paramColor)
   }
+
   return (
     <div className='w-80 rounded-md p-8 relative' style={{
       backgroundColor: color,
@@ -37,13 +38,18 @@ function Card({ noteId, title, children, createdAt, changeArchived }) {
           </div>
         </div>
         <div className="flex gap-4">
-          <Button textSize='12px' padding="4px">
+          <Button textSize='12px' padding="4px" onClick={() => { deleteNote(noteId) }}>
             Hapus 🗑️
           </Button>
-          
-          <Button isPrimary textSize='12px' padding="4px" onClick={() => { changeArchived(noteId) }}>
-            Arsipkan 📂
-          </Button>
+
+          {isArchived ?
+            <Button isPrimary textSize='12px' padding="4px" onClick={() => { changeArchived(noteId) }}>
+              Pindahkan 🚀
+            </Button> :
+            <Button isPrimary textSize='12px' padding="4px" onClick={() => { changeArchived(noteId) }}>
+              Arsipkan 📂
+            </Button>
+          }
         </div>
       </div>
     </div>

@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
 import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
 import Navigation from './components/Navigation'
 import Button from './components/Button'
 import Card from './components/Card'
@@ -40,7 +38,6 @@ function App() {
       if (note.id !== paramsId) {
         return note;
       } else {
-        // Return a new circle 50px below
         return {
           ...note,
           isArchived: !note.isArchived,
@@ -48,6 +45,12 @@ function App() {
       }
     });
     setNote(newNotes)
+  }
+
+  function deleteNote(paramsId) {
+    setNote(
+      notes.filter(note => note.id !== paramsId)
+    );
   }
 
   return (
@@ -74,7 +77,9 @@ function App() {
                       changeArchived={changeArchived}
                       title={note.title}
                       createdAt={moment(note.createdAt).format("DD-MM-YYYY")}
-                      key={note.id} >
+                      key={note.id}
+                      deleteNote={deleteNote}
+                    >
                       {note.body}
                     </Card>
                   )
@@ -93,7 +98,10 @@ function App() {
                       changeArchived={changeArchived}
                       title={note.title}
                       createdAt={moment(note.createdAt).format("DD-MM-YYYY")}
-                      key={note.id} >
+                      key={note.id}
+                      isArchived
+                      deleteNote={deleteNote}
+                    >
                       {note.body}
                     </Card>
                   )
